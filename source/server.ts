@@ -3,6 +3,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import logs, { NAMESPACE } from './utils/logs';
 import config from './config/config';
 import userRoutes from './routes/user';
+import path from "path";
 
 const appServer = NAMESPACE.SERVER;
 
@@ -40,6 +41,9 @@ app.use((req: Request, res: Response, next: NextFunction): void => {
 
 // Routes
 app.use('/users', userRoutes);
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Error handling
 app.use((req: Request, res: Response, next: NextFunction) => {
